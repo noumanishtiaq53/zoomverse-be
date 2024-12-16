@@ -1,0 +1,5 @@
+export const PRODUCTS = {
+  SERVICES: "SERVICES",
+  SALES: "SALES",
+  OPERATION: "OPERATION",
+};
