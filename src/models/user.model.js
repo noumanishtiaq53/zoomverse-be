@@ -1,21 +1,13 @@
-import { USER_STATUS } from "../constants/db.constant.js";
-import { ROLES } from "../constants/roles.constant.js";
+import {
+  RELATIONSHIP_STATUS,
+  USER_STATUS,
+} from "../constants/db-enums.constant.js";
 import { DB_MODELS } from "../constants/db-models.constant.js";
-import { generateModel, generateSchema, ObjectIdType } from "../db/db.odm.js";
+import { generateModel, generateSchema } from "../db/db.odm.js";
 import { decryptPassword, encryptPassword } from "../lib/hash.lib.js";
 import { signedAccessToken, signedRefreshToken } from "../lib/token.lib.js";
 
 const userSchemaPattern = {
-  firstName: {
-    type: String,
-    trim: true,
-    lowercase: true,
-  },
-  lastName: {
-    type: String,
-    trim: true,
-    lowercase: true,
-  },
   userName: {
     type: String,
     trim: true,
@@ -32,35 +24,58 @@ const userSchemaPattern = {
     required: true,
     index: true,
   },
-  phoneNumber: {
+  password: {
+    type: String,
+    required: [true, "password is required"],
+  },
+  profileName: {
     type: String,
     trim: true,
-    unique: true,
-    required: true,
+    lowercase: true,
   },
-  address: {
+  country: {
+    type: String,
+    trim: true,
+  },
+  city: {
     type: String,
     trim: true,
   },
   avatar: {
     type: String,
   },
-  role: {
+  coverImage: {
     type: String,
-    enum: Object.values(ROLES),
   },
-  password: {
+  dateOfBirth: {
+    type: Date,
+  },
+  relationshipStatus: {
     type: String,
-    required: [true, "password is required"],
+    enum: Object.values(RELATIONSHIP_STATUS),
   },
   status: {
     type: String,
     enum: Object.values(USER_STATUS),
     default: USER_STATUS?.IN_ACTIVE,
   },
-  product: {
-    type: ObjectIdType,
-    ref: DB_MODELS?.PRODUCT,
+  favoriteTvShows: {
+    type: String,
+  },
+  favoriteMusicBands: {
+    type: String,
+  },
+  favoriteMovies: {
+    type: String,
+  },
+  favoriteBooks: {
+    type: String,
+  },
+  favoriteGames: {
+    type: String,
+  },
+  hobbies: {
+    type: String,
   },
   refreshToken: {
     type: String,
